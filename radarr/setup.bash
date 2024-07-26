@@ -45,28 +45,28 @@ apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/community dotnet
 
 mkdir -p /custom-services.d
 echo "Download QueueCleaner service..."
-curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/naming.jsonmain/universal/services/QueueCleaner -o /custom-services.d/QueueCleaner
+curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/universal/services/QueueCleaner -o /custom-services.d/QueueCleaner
 echo "Done"
 
 echo "Download AutoConfig service..."
-curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/naming.jsonmain/radarr/AutoConfig.service -o /custom-services.d/AutoConfig
+curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/AutoConfig.service -o /custom-services.d/AutoConfig
 echo "Done"
 
 echo "Download AutoExtras service..."
-curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/naming.jsonmain/radarr/AutoExtras.service -o /custom-services.d/AutoExtras
+curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/AutoExtras.service -o /custom-services.d/AutoExtras
 echo "Done"
 
 echo "Download InvalidMoviesAutoCleaner service..."
-curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/naming.jsonmain/radarr/InvalidMoviesAutoCleaner.bash -o /custom-services.d/InvalidMoviesAutoCleaner
+curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/InvalidMoviesAutoCleaner.bash -o /custom-services.d/InvalidMoviesAutoCleaner
 echo "Done"
 
 echo "Download UnmappedFolderCleaner service..."
-curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/naming.jsonmain/radarr/UnmappedFolderCleaner.bash -o /custom-services.d/UnmappedFolderCleaner
+curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/UnmappedFolderCleaner.bash -o /custom-services.d/UnmappedFolderCleaner
 echo "Done"
 
 mkdir -p /config/extended
 echo "Download Script Functions..."
-curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/naming.jsonmain/universal/functions.bash -o /config/extended/functions
+curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/universal/functions.bash -o /config/extended/functions
 echo "Done"
 
 
@@ -78,32 +78,32 @@ fi
 
 mkdir -p /config/extended
 echo "Download PlexNotify script..."
-curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/naming.jsonmain/radarr/PlexNotify.bash -o /config/extended/PlexNotify.bash 
+curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/PlexNotify.bash -o /config/extended/PlexNotify.bash 
 echo "Done"
 
 echo "Download Extras script..."
-curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/naming.jsonmain/radarr/Extras.bash -o /config/extended/Extras.bash 
+curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/Extras.bash -o /config/extended/Extras.bash 
 echo "Done"
 
 if [ ! -f /config/extended/sma.ini ]; then
 	echo "Download SMA config..."
-	curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/naming.jsonmain/radarr/sma.ini -o /config/extended/sma.ini 
+	curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/sma.ini -o /config/extended/sma.ini 
 	echo "Done"
 fi
 
 echo "Download Recyclarr service..."
-curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/naming.jsonmain/universal/services/Recyclarr -o /custom-services.d/Recyclarr
+curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/universal/services/Recyclarr -o /custom-services.d/Recyclarr
 echo "Done"
 
 if [ ! -f /config/extended/recyclarr.yaml ]; then
 	echo "Download Recyclarr config..."
-	curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/naming.jsonmain/radarr/recyclarr.yaml -o /config/extended/recyclarr.yaml
+	curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/recyclarr.yaml -o /config/extended/recyclarr.yaml
 	echo "Done"
 fi
 
 if [ ! -f /config/extended.conf ]; then
 	echo "Download Extended config..."
-	curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/naming.jsonmain/radarr/extended.conf -o /config/extended.conf
+	curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/radarr/extended.conf -o /config/extended.conf
 	chmod 777 /config/extended.conf
 	echo "Done"
 fi
