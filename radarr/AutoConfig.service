@@ -28,10 +28,11 @@ fi
 
 trashStandardMovieFormat=$(echo "$namingJson" | jq -r '.file.jellyfin')
 trashMovieFolderFormat=$(echo "$namingJson" | jq -r '.folder.jellyfin')
+namingConfigId=1
 
 if [ "$configureNaming" == "true" ] || [ -z "$configureNaming" ]; then
-	log "Updating Radarr Moving Naming..."
-	updateArr=$(curl -s "$arrUrl/api/v3/config/naming" -X PUT -H "Content-Type: application/json" -H "X-Api-Key: $arrApiKey" --data-raw "{
+	log "Updating Radarr Movie Naming..."
+	updateArr=$(curl -s "$arrUrl/api/v3/config/naming/$namingConfigId" -X PUT -H "Content-Type: application/json" -H "X-Api-Key: $arrApiKey" --data-raw "{
 	    \"renameMovies\":true,
 	    \"replaceIllegalCharacters\":true,
 	    \"colonReplacementFormat\":\"delete\",
@@ -39,9 +40,10 @@ if [ "$configureNaming" == "true" ] || [ -z "$configureNaming" ]; then
 	    \"movieFolderFormat\":\"$trashMovieFolderFormat\",
 	    \"includeQuality\":false,
 	    \"replaceSpaces\":false,
-	    \"id\":1
+	    \"id\":$namingConfigId
 	    }")
 	    
+	log "API Response: $updateArr"
 	log "Complete"
 fi
 
