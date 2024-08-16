@@ -31,7 +31,7 @@ dailyNaming=$(echo "$namingJson" | jq -r '.episodes.daily."default:4"')
 animeNaming=$(echo "$namingJson" | jq -r '.episodes.anime."default:4"')
 seriesNaming=$(echo "$namingJson" | jq -r '.series.jellyfin')
 seasonNaming=$(echo "$namingJson" | jq -r '.season.default')
-customColonReplacementFormat=4
+colonReplacementFormat=4
 
 if [ "$configureNaming" == "true" ] || [ -z "$configureNaming" ]; then
 	log "Updating Sonarr File Naming..."
@@ -51,7 +51,7 @@ if [ "$configureNaming" == "true" ] || [ -z "$configureNaming" ]; then
 		\"replaceSpaces\":true,
 		\"separator\":\" - \",
 		\"numberStyle\":\"S{season:00}E{episode:00}\",
-		\"customColonReplacementFormat\":$customColonReplacementFormat,
+		\"colonReplacementFormat\":$colonReplacementFormat,
 		\"id\":1
 		}")    
 	log "Complete"
