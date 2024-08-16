@@ -29,7 +29,7 @@ fi
 standardNaming=$(echo "$namingJson" | jq -r '.episodes.standard."default:4"')
 dailyNaming=$(echo "$namingJson" | jq -r '.episodes.daily."default:4"')
 animeNaming=$(echo "$namingJson" | jq -r '.episodes.anime."default:4"')
-seriesNaming=$(echo "$namingJson" | jq -r '.series.default')
+seriesNaming=$(echo "$namingJson" | jq -r '.series.jellyfin')
 seasonNaming=$(echo "$namingJson" | jq -r '.season.default')
 
 if [ "$configureNaming" == "true" ] || [ -z "$configureNaming" ]; then
