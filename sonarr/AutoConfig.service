@@ -33,10 +33,11 @@ seriesNaming=$(echo "$namingJson" | jq -r '.series.jellyfin')
 seasonNaming=$(echo "$namingJson" | jq -r '.season.default')
 customColonReplacementFormat=" - "
 colonReplacementFormat=4
+namingConfigId=1
 
 if [ "$configureNaming" == "true" ] || [ -z "$configureNaming" ]; then
 	log "Updating Sonarr File Naming..."
-	updateArr=$(curl -s "$arrUrl/api/v3/config/naming" -X PUT -H "Content-Type: application/json" -H "X-Api-Key: $arrApiKey" --data-raw "{
+	updateArr=$(curl -s "$arrUrl/api/v3/config/naming/$namingConfigId" -X PUT -H "Content-Type: application/json" -H "X-Api-Key: $arrApiKey" --data-raw "{
 		\"renameEpisodes\":true,
 		\"replaceIllegalCharacters\":true,
 		\"multiEpisodeStyle\":5,
@@ -54,7 +55,7 @@ if [ "$configureNaming" == "true" ] || [ -z "$configureNaming" ]; then
 		\"numberStyle\":\"S{season:00}E{episode:00}\",
 		\"customColonReplacementFormat\":\"$customColonReplacementFormat\",
 		\"colonReplacementFormat\":$colonReplacementFormat,
-		\"id\":1
+		\"id\":$namingConfigId
 	}")
 	log "Complete"
 fi
