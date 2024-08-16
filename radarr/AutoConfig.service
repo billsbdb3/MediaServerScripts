@@ -26,7 +26,7 @@ else
 	namingJson=$(curl -s "https://raw.githubusercontent.com/TRaSH-/Guides/master/docs/json/radarr/naming/radarr-naming.json")
 fi
 
-trashStandardMovieFormat=$(echo "$namingJson" | jq -r '.file.default')
+trashStandardMovieFormat=$(echo "$namingJson" | jq -r '.file.jellyfin')
 trashMovieFolderFormat=$(echo "$namingJson" | jq -r '.folder.jellyfin')
 
 if [ "$configureNaming" == "true" ] || [ -z "$configureNaming" ]; then
