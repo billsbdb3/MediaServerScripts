@@ -27,7 +27,7 @@ else
 fi
 
 trashStandardMovieFormat=$(echo "$namingJson" | jq -r '.file.default')
-trashMovieFolderFormat=$(echo "$namingJson" | jq -r '.folder.default')
+trashMovieFolderFormat=$(echo "$namingJson" | jq -r '.folder.jellyfin')
 
 if [ "$configureNaming" == "true" ] || [ -z "$configureNaming" ]; then
 	log "Updating Radarr Moving Naming..."
