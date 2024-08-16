@@ -52,13 +52,12 @@ if [ "$configureNaming" == "true" ] || [ -z "$configureNaming" ]; then
 		\"replaceSpaces\":true,
 		\"separator\":\" - \",
 		\"numberStyle\":\"S{season:00}E{episode:00}\",
-		\"customColonReplacementFormat\":$customColonReplacementFormat,
+		\"customColonReplacementFormat\":\"$customColonReplacementFormat\",
 		\"colonReplacementFormat\":$colonReplacementFormat,
 		\"id\":1
-		}")    
+	}")
 	log "Complete"
 fi
-
 
 if [ "$configureMediaManagement" == "true" ] || [ -z "$configureMediaManagement" ]; then
 	log "Updating Sonrr Media Management..."
