@@ -34,15 +34,16 @@ touch ${SMA_PATH}/config/sma.log && \
 chgrp users ${SMA_PATH}/config/sma.log && \
 chmod g+w ${SMA_PATH}/config/sma.log && \
 echo "************ install pip dependencies ************" && \
+
+echo "************ install Profilarr ************" && \
+mkdir -p /profilarr && \
+git clone https://github.com/Dictionarry-Hub/profilarr.git /profilarr && \
+cd /profilarr && \
+pip3 install --break-system-packages -r requirements.txt && \
+echo "************ setup Profilarr config ************" && \
+python3 setup.py  # This creates the config.yml file
 python3 -m pip install --break-system-packages --upgrade pip && \	
 pip3 install --break-system-packages -r ${SMA_PATH}/setup/requirements.txt && \
-echo "************ install recyclarr ************" && \
-mkdir -p /recyclarr && \
-wget "https://github.com/recyclarr/recyclarr/releases/latest/download/recyclarr-linux-musl-x64.tar.xz" -O "/recyclarr/recyclarr.tar.xz" && \
-tar -xf /recyclarr/recyclarr.tar.xz -C /recyclarr &>/dev/null && \
-chmod 777 /recyclarr/recyclarr
-apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/community dotnet8-runtime
-
 mkdir -p /custom-services.d
 echo "Download QueueCleaner service..."
 curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/universal/services/QueueCleaner -o /custom-services.d/QueueCleaner
