@@ -45,6 +45,11 @@ python3 setup.py  # This creates the config.yml file
 python3 -m pip install --break-system-packages --upgrade pip && \	
 pip3 install --break-system-packages -r ${SMA_PATH}/setup/requirements.txt && \
 mkdir -p /custom-services.d
+
+echo "Download Profilarr service..."
+curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/universal/services/Profilarr -o /custom-services.d/Profilarr
+echo "Done"
+
 echo "Download QueueCleaner service..."
 curl https://raw.githubusercontent.com/billsbdb3/MediaServerScripts/main/universal/services/QueueCleaner -o /custom-services.d/QueueCleaner
 echo "Done"
