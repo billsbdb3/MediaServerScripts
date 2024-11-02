@@ -23,16 +23,16 @@ verifyApiAccess
 log "Starting Profilarr import and sync..."
 
 
-
-# Navigate to the Profilarr directory and run the import and sync scripts
+log "Navigating to /profilarr"
 cd /profilarr || { log "ERROR: Failed to change directory to /profilarr"; exit 1; }
 
-# Run import script
+log "Running importarr.py"
 if python3 importarr.py >> "$logfile" 2>&1; then
   log "Profilarr import completed successfully."
 else
   log "ERROR: Profilarr import encountered an error."
 fi
+
 
 # Run sync script
 if python3 syncarr.py >> "$logfile" 2>&1; then
