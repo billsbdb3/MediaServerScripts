@@ -15,33 +15,52 @@ if [ "$enableProfilarr" != "true" ]; then
   exit 0
 fi
 
-# Get Arr app information and verify API access
-getArrAppInfo
-verifyApiAccess
+# Log before calling the function
+log "Calling updateProfilarrConfig function to update configuration."
 
-# Update the Profilarr configuration before running the import and sync scripts
-log "Updating Profilarr configuration file"
-updateProfilarrConfig
+# Call the function and add error checking
+if updateProfilarrConfig; then
+  log "Profilarr configuration updated successfully."
+else
+  log "ERROR: Failed to update Profilarr configuration."
+  exit 1
+fi
 
 log "Starting Profilarr import and sync..."
 
-log "Navigating to profilarr"
-cd /profilarr || { log "ERROR: Failed to change directory to /profilarr"; exit 1; }
-
-# Run import script with automated input
-log "Running importarr.py"
-if printf "1\n1\n" | python3 importarr.py >> "$logfile" 2>&1; then
-  log "Profilarr import completed successfully."
+# Check if the /profilarr directory exists and navigate to it
+if [ -d "/profilarr" ]; then
+  log "Navigating to /profilarr"
+  cd /profilarr || { log "ERROR: Failed to change directory to /profilarr"; exit 1; }
 else
-  log "ERROR: Profilarr import encountered an error."
+  log "ERROR: /profilarr directory does not exist. Exiting."
+  exit 1
 fi
 
-# Run sync script with automated input
-log "Running syncarr.py"
-if printf "1\n1\n" | python3 syncarr.py >> "$logfile" 2>&1; then
-  log "Profilarr sync completed successfully."
+# Check if importarr.py exists before running it
+if [ -f "importarr.py" ]; then
+  log "Running importarr.py"
+  if printf "1\n1\n" | python3 importarr.py >> "$logfile" 2>&1; then
+    log "Profilarr import completed successfully."
+  else
+    log "ERROR: Profilarr import encountered an error."
+  fi
 else
-  log "ERROR: Profilarr sync encountered an error."
+  log "ERROR: importarr.py not found in /profilarr. Exiting."
+  exit 1
+fi
+
+# Check if syncarr.py exists before running it
+if [ -f "syncarr.py" ]; then
+  log "Running syncarr.py"
+  if printf "1\n1\n" | python3 syncarr.py >> "$logfile" 2>&1; then
+    log "Profilarr sync completed successfully."
+  else
+    log "ERROR: Profilarr sync encountered an error."
+  fi
+else
+  log "ERROR: syncarr.py not found in /profilarr. Exiting."
+  exit 1
 fi
 
 log "Completed Profilarr import and sync."
