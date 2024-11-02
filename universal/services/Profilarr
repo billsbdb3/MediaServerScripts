@@ -9,33 +9,36 @@ source /config/extended/functions
 #### Create Log File
 logfileSetup
 
-
-
 # Verify that the service is enabled
 if [ "$enableProfilarr" != "true" ]; then
   log "Profilarr service is disabled in configuration. Exiting."
   exit 0
 fi
 
+# Get Arr app information and verify API access
 getArrAppInfo
 verifyApiAccess
 
-log "Starting Profilarr import and sync..."
+# Update the Profilarr configuration before running the import and sync scripts
+log "Updating Profilarr configuration file"
+updateProfilarrConfig
 
+log "Starting Profilarr import and sync..."
 
 log "Navigating to profilarr"
 cd /profilarr || { log "ERROR: Failed to change directory to /profilarr"; exit 1; }
 
+# Run import script with automated input
 log "Running importarr.py"
-if python3 importarr.py >> "$logfile" 2>&1; then
+if printf "1\n1\n" | python3 importarr.py >> "$logfile" 2>&1; then
   log "Profilarr import completed successfully."
 else
   log "ERROR: Profilarr import encountered an error."
 fi
 
-
-# Run sync script
-if python3 syncarr.py >> "$logfile" 2>&1; then
+# Run sync script with automated input
+log "Running syncarr.py"
+if printf "1\n1\n" | python3 syncarr.py >> "$logfile" 2>&1; then
   log "Profilarr sync completed successfully."
 else
   log "ERROR: Profilarr sync encountered an error."
