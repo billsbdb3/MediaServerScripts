@@ -37,7 +37,7 @@ echo "************ install pip dependencies ************" && \
 
 echo "************ install Profilarr ************" && \
 mkdir -p /profilarr && \
-git clone https://github.com/Dictionarry-Hub/profilarr.git /profilarr && \
+git clone https://github.com/Dictionarry-Hub/profilarr/tree/main-archive /profilarr && \
 cd /profilarr && \
 pip3 install --break-system-packages -r requirements.txt && \
 echo "************ setup Profilarr config ************" && \
