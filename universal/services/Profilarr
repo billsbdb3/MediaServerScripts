@@ -11,6 +11,9 @@ source /config/extended/functions
 #### Create Log File
 logfileSetup
 
+getArrAppInfo
+verifyApiAccess
+
 # Verify that the service is enabled
 if [ "$enableProfilarr" != "true" ]; then
   log "Profilarr service is disabled in configuration. Exiting."
@@ -19,8 +22,7 @@ fi
 
 log "Starting Profilarr import and sync..."
 
-# Wait for Radarr to be ready
-verifyApiAccess
+
 
 # Navigate to the Profilarr directory and run the import and sync scripts
 cd /profilarr || { log "ERROR: Failed to change directory to /profilarr"; exit 1; }
