@@ -1,7 +1,38 @@
-#!/bin/bash
-# Profilarr service script to run periodically
+#!/usr/bin/env bash
+scriptVersion="1.0"
+scriptName="Profilarr"
+
+#### Import Settings
+source /config/extended.conf
+
+#### Import Functions
+source /config/extended/functions
+
+#### Create Log File
+logfileSetup
+
+logfile="/config/logs/$logFileName"
+
+log() {
+  m_time=$(date "+%F %T")
+  echo "$m_time :: $scriptName :: $scriptVersion :: $1" | tee -a "$logfile"
+}
+
+verifyConfig() {
+  if [ "$enableProfilarr" != "true" ]; then
+    log "Profilarr service is disabled in configuration. Exiting."
+    exit 0
+  fi
+}
+
+# Verify that the service is enabled
+verifyConfig
+
+log "Starting Profilarr import and sync..."
 
 # Navigate to the Profilarr directory and run the import and sync scripts
-cd /profilarr
-python3 importarr.py >> /config/extended/profilarr_import.log 2>&1
-python3 syncarr.py >> /config/extended/profilarr_sync.log 2>&1
+cd /profilarr || exit
+python3 importarr.py >> "$logfile" 2>&1
+python3 syncarr.py >> "$logfile" 2>&1
+
+log "Completed Profilarr import and sync."
