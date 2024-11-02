@@ -1,0 +1,7 @@
+#!/bin/bash
+# Profilarr service script to run periodically
+
+# Navigate to the Profilarr directory and run the import and sync scripts
+cd /profilarr
+python3 importarr.py >> /config/extended/profilarr_import.log 2>&1
+python3 syncarr.py >> /config/extended/profilarr_sync.log 2>&1
