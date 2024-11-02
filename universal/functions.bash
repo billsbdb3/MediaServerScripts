@@ -68,5 +68,52 @@ ConfValidationCheck () {
   fi
 }
 
+updateProfilarrConfig() {
+  local radarrApiVersion="v3"
+  local configFilePath="/profilarr/config.yml"
+  
+  # Ensure Radarr is ready before fetching data
+  verifyApiAccess
+
+  # Fetch Radarr details (replace placeholders with actual API endpoints if needed)
+  local radarrBaseUrl=$(cat /config/config.xml | xq | jq -r .Config.UrlBase)
+  local radarrApiKey=$(cat /config/config.xml | xq | jq -r .Config.ApiKey)
+  local radarrPort=$(cat /config/config.xml | xq | jq -r .Config.Port)
+  
+  if [ "$radarrBaseUrl" == "null" ]; then
+    radarrBaseUrl=""
+  else
+    radarrBaseUrl="/$(echo "$radarrBaseUrl" | sed "s/\///")"
+  fi
+  
+  local radarrUrl="http://127.0.0.1:${radarrPort}${radarrBaseUrl}"
+
+  # Verify the API connection
+  if [ -z "$(curl -s "$radarrUrl/api/$radarrApiVersion/system/status?apikey=$radarrApiKey" | jq -r .instanceName)" ]; then
+    log "Failed to connect to Radarr API. Exiting Profilarr configuration update."
+    exit 1
+  fi
+
+  # Update Profilarr `config.yml`
+  log "Updating Profilarr configuration file: $configFilePath"
+  
+  cat <<EOF > "$configFilePath"
+instances:
+  radarr:
+    - name: "RadarrInstance"
+      base_url: "$radarrUrl"
+      api_key: "$radarrApiKey"
+  sonarr:
+    - name: "DefaultSonarr"
+      base_url: "http://localhost:8989"
+      api_key: "SONARR_API_KEY"  # Replace with the real Sonarr API key if needed
+settings:
+  export_path: "./exports"
+  import_path: "./imports"
+  ansi_colors: true
+EOF
+
+  log "Profilarr configuration file updated successfully."
+}
 logfileSetup
 ConfValidationCheck

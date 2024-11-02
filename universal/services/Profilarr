@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+scriptVersion="1.0"
+scriptName="Profilarr"
+
+#### Import Settings
+source /config/extended.conf
+
+#### Import Functions
+source /config/extended/functions
+
+#### Create Log File
+logfileSetup
+
+# Verify that the service is enabled
+if [ "$enableProfilarr" != "true" ]; then
+  log "Profilarr service is disabled in configuration. Exiting."
+  exit 0
+fi
+
+log "Starting Profilarr import and sync..."
+
+# Wait for Radarr to be ready
+verifyApiAccess
+
+# Navigate to the Profilarr directory and run the import and sync scripts
+cd /profilarr || { log "ERROR: Failed to change directory to /profilarr"; exit 1; }
+
+# Run import script
+if python3 importarr.py >> "$logfile" 2>&1; then
+  log "Profilarr import completed successfully."
+else
+  log "ERROR: Profilarr import encountered an error."
+fi
+
+# Run sync script
+if python3 syncarr.py >> "$logfile" 2>&1; then
+  log "Profilarr sync completed successfully."
+else
+  log "ERROR: Profilarr sync encountered an error."
+fi
+
+log "Completed Profilarr import and sync."
