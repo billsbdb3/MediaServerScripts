@@ -72,4 +72,17 @@ fi
 log "Completed Profilarr import and sync."
 }
 
+for (( ; ; )); do
+  let i++
+  logfileSetup
+  verifyConfig
+  getArrAppInfo
+  verifyApiAccess
+  profilarrMain
+  log "Script sleeping for $profilarrScriptInterval..."
+  sleep $profilarrScriptInterval
+done
+
+exit
+
 
