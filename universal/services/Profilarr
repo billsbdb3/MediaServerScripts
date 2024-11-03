@@ -9,14 +9,16 @@ source /config/extended/functions
 #### Create Log File
 logfileSetup
 
+getArrAppInfo
+verifyApiAccess
+
 # Verify that the service is enabled
 if [ "$enableProfilarr" != "true" ]; then
   log "Profilarr service is disabled in configuration. Exiting."
   exit 0
 fi
 
-getArrAppInfo
-verifyApiAccess
+
 
 # Log before calling the function
 log "Calling updateProfilarrConfig function to update configuration."
