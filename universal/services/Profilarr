@@ -15,6 +15,9 @@ if [ "$enableProfilarr" != "true" ]; then
   exit 0
 fi
 
+getArrAppInfo
+verifyApiAccess
+
 # Log before calling the function
 log "Calling updateProfilarrConfig function to update configuration."
 
