@@ -12,14 +12,15 @@ logfileSetup
 getArrAppInfo
 verifyApiAccess
 
+verifyConfig(){
 # Verify that the service is enabled
 if [ "$enableProfilarr" != "true" ]; then
   log "Profilarr service is disabled in configuration. Exiting."
   exit 0
 fi
+}
 
-
-
+profilarrMain(){
 # Log before calling the function
 log "Calling updateProfilarrConfig function to update configuration."
 
@@ -69,3 +70,6 @@ else
 fi
 
 log "Completed Profilarr import and sync."
+}
+
+
