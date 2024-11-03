@@ -15,8 +15,8 @@ verifyApiAccess
 verifyConfig(){
 # Verify that the service is enabled
 if [ "$enableProfilarr" != "true" ]; then
-  log "Profilarr service is disabled in configuration. Exiting."
-  exit 0
+  log "Profilarr service is disabled in configuration. Sleeping (infinity)."
+  sleep infinity
 fi
 }
 
